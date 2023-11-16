@@ -1,0 +1,11 @@
+.main-banner {
+  max-height: 100vh;
+  position: relative;
+}
+.main-banner img {
+  width: 100%;
+}
+.container-banner {
+  width: 1536px;
+  margin: 0 auto;
+}
