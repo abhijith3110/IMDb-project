@@ -9,26 +9,26 @@ const BannerMovies = ({ movieData }) => {
     <div className="Banner-movie-div">
       <div className="BannerMovies-container">
         <div className="Banner-movie-cards">
-          {Array.isArray(movieData.results) ? (
-            movieData.results.map((movie) => (
-              <div
-                className="Banner-card"
-                key={movie.id}
-                onClick={() => navigate(`/movies/${movie.id}`)}
-              >
-                <div className="card-img">
-                  <img src={movie.image} alt="Movie Poster" />
+          {Array.isArray(movieData.results) && (
+            movieData.results.map((movie) => {
+              const { id, image, title, year, type } = movie;
+              return (
+                <div
+                  className="Banner-card"
+                  key={id}
+                  onClick={() => navigate(`/movies/${id}`)}
+                >
+                  <div className="card-img">
+                    <img src={image} alt="Movie Poster" />
+                  </div>
+                  <div className="card-title">
+                    <h2>{title}</h2>
+                    <h5>({year})</h5>
+                    <h3>{type}</h3>
+                  </div>
                 </div>
-                <div className="card-title">
-                  <h2>{movie.title}</h2>
-                  <h5>({movie.year})</h5>
-                  <h3>{movie.type}</h3>
-                </div>
-              </div>
-            ))
-          ) : (
-            <>
-            </>
+              )
+            })
           )}
         </div>
       </div>

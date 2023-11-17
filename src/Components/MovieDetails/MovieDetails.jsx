@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import "./MovieDetails.css";
 import RelatedMovies from "../RelatedMovies/RelatedMovies";
 import SearchedMovies from "../SearchedMovies/SearchedMovies";
 import { useWatchlist } from "../WatchlistContext/WatchlistContext";
+import "./MovieDetails.css";
 
 const MovieDetails = ({ movieData }) => {
   const { userId } = useParams();
   const [movieDataItems, setMovieDataItems] = useState([]);
-  const { watchlistMovieCreate, setMovieContant, movieContant } =
-    useWatchlist();
+  const { watchlistMovieCreate, setMovieContant, movieContant,handleRemoveMovie,watchlistData } = useWatchlist();
 
   useEffect(() => {
     axios
@@ -33,6 +32,16 @@ const MovieDetails = ({ movieData }) => {
       .catch((error) => {
         console.error("An error occurred:", error);
       });
+  };
+
+  const isInWatchlist = watchlistData.some((movie) => movie.id === movieContant.id);
+ 
+  const handleWatchlistButtonClick = () => {
+    if (isInWatchlist) {
+      handleRemoveMovie(movieContant.id);
+    } else {
+      watchlistMovieCreate();
+    }
   };
 
   return (
@@ -69,8 +78,8 @@ const MovieDetails = ({ movieData }) => {
             </div>
           </div>
           <div className="watchlist-div">
-            <button className="watch-list-btn" onClick={watchlistMovieCreate}>
-              <h4>ADD TO WATCHLIST</h4>
+            <button className="watch-list-btn" onClick={handleWatchlistButtonClick}>
+             <h4>{isInWatchlist ? "REMOVE FROM WATCHLIST" : "ADD TO WATCHLIST"}</h4>
             </button>
           </div>
         </div>

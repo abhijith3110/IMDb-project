@@ -11,9 +11,7 @@ const MainBanner = ({ movieData }) => {
           alt="Error"
         />
       </div>
-      <>
-        <BannerMovies movieData={movieData} />
-      </>
+      <BannerMovies movieData={movieData} />
     </div>
   );
 };
